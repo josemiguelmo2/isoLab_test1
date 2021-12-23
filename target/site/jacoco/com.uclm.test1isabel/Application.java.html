@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Application.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test1isabel</a> &gt; <a href="index.source.html" class="el_package">com.uclm.test1isabel</a> &gt; <span class="el_source">Application.java</span></div><h1>Application.java</h1><pre class="source lang-java linenums">package com.uclm.test1isabel;
+import java.util.Scanner;
+<span class="fc" id="L3">public class Application{</span>
+	
+<span class="fc" id="L5">	final static Scanner teclado = new Scanner (System.in);</span>
+	
+	static boolean covid; 
+	static String actividad;
+<span class="fc" id="L9">	static int temperatura = 0;</span>
+<span class="fc" id="L10">	static int humedad = 0;</span>
+<span class="fc" id="L11">	static boolean precipitaciones = true;</span>
+<span class="fc" id="L12">	static boolean nublado = true;</span>
+<span class="fc" id="L13">	static boolean confinamiento = true;</span>
+<span class="fc" id="L14">	static int aforo = 0;</span>
+	static Persona persona;
+	
+	//static boolean sana = false, sintomas = false, contacto = false, pasaporteCovid = false, pasadoCovid = false;
+
+	public static void main(String[] args) {
+		
+<span class="nc" id="L21">		menu();</span>
+
+<span class="nc" id="L23">	}	</span>
+	
+	public static boolean menu() {
+		
+<span class="nc" id="L27">		boolean a = true;</span>
+	
+	try{
+		
+<span class="nc" id="L31">		System.out.println(&quot;Por favor, introduzca si está sana (true/false): &quot;);</span>
+<span class="nc" id="L32">		boolean sana = teclado.nextBoolean();</span>
+<span class="nc" id="L33">		System.out.println(&quot;Por favor, introduzca si tiene síntomas de covid (true/false): &quot;);</span>
+<span class="nc" id="L34">		boolean sintomas = teclado.nextBoolean();</span>
+<span class="nc" id="L35">		System.out.println(&quot;Por favor, introduzca si ha tenido contacto con un positivo (true/false): &quot;);</span>
+<span class="nc" id="L36">		boolean contacto = teclado.nextBoolean();</span>
+<span class="nc" id="L37">		System.out.println(&quot;Por favor, introduzca si tiene pasaporte Covid (true/false): &quot;);</span>
+<span class="nc" id="L38">		boolean pasaporteCovid = teclado.nextBoolean();</span>
+<span class="nc" id="L39">		System.out.println(&quot;Por favor, introduzca si ha pasado el Covid (true/false): &quot;);</span>
+<span class="nc" id="L40">		boolean pasadoCovid = teclado.nextBoolean();</span>
+<span class="nc" id="L41">		System.out.println(pasadoCovid);</span>
+<span class="nc" id="L42">		persona = new Persona(sana, sintomas, contacto, pasadoCovid, pasaporteCovid);</span>
+<span class="nc" id="L43">		covid = persona.saludPersona();</span>
+		
+		
+<span class="nc" id="L46">		System.out.println(&quot;Introduzca los siguientes datos:\n&quot;);</span>
+<span class="nc" id="L47">		System.out.println(&quot;Temperatura:\n&quot; );</span>
+<span class="nc" id="L48">		obtenerPositivo();</span>
+<span class="nc" id="L49">		System.out.println(&quot;Humedad:\n&quot; );</span>
+<span class="nc" id="L50">		obtenerHumedad();</span>
+<span class="nc" id="L51">		System.out.println(&quot;Por favor, introduzca si habrá precipitaciones (true/false): &quot;);</span>
+<span class="nc" id="L52">		precipitaciones = teclado.nextBoolean();</span>
+<span class="nc" id="L53">		System.out.println(&quot;Por favor, introduzca si estará nublado (true/false): &quot;);</span>
+<span class="nc" id="L54">		nublado = teclado.nextBoolean();</span>
+<span class="nc" id="L55">		System.out.println(&quot;Por favor, introduzca si hay confinamiento (true/false): &quot;);</span>
+<span class="nc" id="L56">		confinamiento = teclado.nextBoolean();</span>
+<span class="nc" id="L57">		System.out.println(&quot;aforo:\n&quot;);</span>
+<span class="nc" id="L58">		obtenerPositivo();</span>
+		
+<span class="nc" id="L60">		actividad = actividadRealizar();</span>
+<span class="nc" id="L61">		System.out.println(&quot;Puedes realizar: &quot; + actividad);</span>
+		
+		//a = true;
+
+<span class="nc" id="L65">	}catch(NoHayAforoException e) {</span>
+<span class="nc" id="L66">		a = false;</span>
+<span class="nc" id="L67">		System.out.println(&quot;No hay aforo&quot;);</span>
+
+<span class="nc" id="L69">	}catch(DatosException n) {</span>
+<span class="nc" id="L70">		a=false;</span>
+<span class="nc" id="L71">		System.out.println(&quot;Error en el formato de los datos&quot;);</span>
+
+<span class="nc" id="L73">	}catch(HumedadException h) {</span>
+<span class="nc" id="L74">		a=false;</span>
+<span class="nc" id="L75">		System.out.println(&quot;Humedad inválida&quot;);</span>
+<span class="nc" id="L76">		}</span>
+	
+<span class="nc" id="L78">	return a;</span>
+
+	}
+	
+	
+public static String actividadRealizar() throws NoHayAforoException, DatosException, HumedadException {
+<span class="fc" id="L84">	String mensaje = &quot;&quot;;</span>
+
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">	if(covid == false){</span>
+<span class="nc" id="L87">		mensaje = &quot;No puede realizar ninguna actividad&quot;;</span>
+
+<span class="pc bpc" id="L89" title="1 of 6 branches missed.">	}else if(temperatura&lt;0 &amp;&amp; humedad&lt;15 &amp;&amp; precipitaciones==true){</span>
+<span class="fc" id="L90">		mensaje =&quot;Mejor quedate en casa&quot;;</span>
+
+<span class="pc bpc" id="L92" title="3 of 8 branches missed.">	}else if(temperatura&lt;0 &amp;&amp; humedad&lt;15  &amp;&amp; precipitaciones==false &amp;&amp; aforo&lt;300){</span>
+<span class="fc" id="L93">		mensaje = &quot;Puedes ir a esquiar&quot;;</span>
+
+<span class="pc bpc" id="L95" title="4 of 10 branches missed.">	}else if(temperatura&gt;0 &amp;&amp; temperatura&lt;=15 &amp;&amp; humedad&lt;=15  &amp;&amp; precipitaciones==false &amp;&amp; aforo&lt;200){</span>
+<span class="fc" id="L96">		mensaje = &quot;Puedes hacer senderismo&quot;;</span>
+
+<span class="pc bpc" id="L98" title="5 of 12 branches missed.">	}else if(temperatura&gt;15 &amp;&amp; temperatura&lt;=25 &amp;&amp; humedad&lt;=60  &amp;&amp; precipitaciones==false &amp;&amp; nublado==false &amp;&amp; confinamiento==false){</span>
+<span class="fc" id="L99">		mensaje = &quot;Puedes hacer turismo al aire libre&quot;;</span>
+
+<span class="pc bpc" id="L101" title="2 of 8 branches missed.">	}else if(temperatura&gt;=25 &amp;&amp; temperatura&lt;=35 &amp;&amp; precipitaciones==false &amp;&amp; aforo&lt;90){</span>
+<span class="fc" id="L102">		mensaje = &quot;Puedes irte de cañas&quot;;</span>
+
+<span class="pc bpc" id="L104" title="2 of 6 branches missed.">	}else if (temperatura&gt;=30 &amp;&amp; precipitaciones==false &amp;&amp; aforo&lt;150){</span>
+<span class="fc" id="L105">		mensaje = &quot;Puedes ir a la piscina o a la playa&quot;;</span>
+
+<span class="pc bpc" id="L107" title="2 of 4 branches missed.">	}else if (temperatura&gt;=30 &amp;&amp; precipitaciones==false){</span>
+<span class="fc" id="L108">		mensaje = &quot;Puedes ir a la playa&quot;;</span>
+	}
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">	if(aforo &lt;= 0){</span>
+<span class="nc" id="L111">		throw new NoHayAforoException(&quot;Lo sentimos, no hay plazas suficientes.&quot;);</span>
+	}
+	
+<span class="fc" id="L114">	return mensaje;</span>
+	}//fin actividadRealizar 
+
+
+public static int obtenerHumedad() throws HumedadException{
+<span class="fc" id="L119">	int hum = 0;</span>
+<span class="fc" id="L120">	hum = 10;</span>
+<span class="pc bpc" id="L121" title="2 of 4 branches missed.">	if(hum &lt;= 0 || hum &gt; 100){</span>
+<span class="nc" id="L122">		throw new HumedadException(&quot;Error, ha introducido una humedad inválida.&quot;);</span>
+	}
+
+<span class="fc" id="L125">	return hum;</span>
+}
+
+public static int obtenerPositivo() throws DatosException{
+<span class="nc" id="L129">	int numero = 0;</span>
+<span class="nc" id="L130">	numero = teclado.nextInt();</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">	if(numero &lt; 0){</span>
+<span class="nc" id="L132">		throw new DatosException(&quot;Dato incorrecto, por favor, introduzca números positivos.&quot;);</span>
+	}
+
+<span class="nc" id="L135">	return numero;</span>
+}
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>
